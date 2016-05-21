@@ -27,14 +27,14 @@ public class Brother {
             x = 0;
         }
         if(velY!=0 && brotherLine==2){
-            if(y==260){
+            if(y==380){
                 velY=0;
             }
         }
-        if(y<190){
+        if(y<280){
             velY=0;
         }
-        else if(y>350){
+        else if(y>480){
             velY=0;
         }
         
@@ -54,20 +54,20 @@ public class Brother {
         brotherLine++;
     }
     public void brotherGoUp(){
-        velY=-4;
+        velY=-4;//*Backpack.checkweight();
         
     }
     
     public void brotherGoDown(){
-        velY=4;
+        velY=4;//*Backpack.checkweight();
     }
     public void accelForward(){ //go forward
         
-        velX = MOVE_SPEED;
+        velX = MOVE_SPEED;//*Backpack.checkweight();
         
     }
     public void accelBack(){ // go back
-        velX = -MOVE_SPEED;
+        velX = -MOVE_SPEED;//*Backpack.checkweight();
     }
     public void stop(){
         velX = 0;

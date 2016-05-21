@@ -15,8 +15,8 @@ import com.jamescho.game.model.Brother;
 public class PlayState extends State{
     private Brother brother;
     private Bag bag1,bag2;
-    private static final int BRO_WIDTH = 120;
-    private static final int BRO_HEIGHT = 150;
+    private static final int BRO_WIDTH = 150;
+    private static final int BRO_HEIGHT = 180;
     private Monster monster;
     private int flag = 0; //show whether brother arrives to the middle of the screen
     private int monsterSay = 0; //show whether monster should speak
@@ -25,7 +25,7 @@ public class PlayState extends State{
     
     @Override
     public void init() {
-        brother = new Brother(20,260,BRO_WIDTH,BRO_HEIGHT);
+        brother = new Brother(20,380,BRO_WIDTH,BRO_HEIGHT);
         monster = new Monster(700,150,100,200);
         bag1 = new Bag(20,400,40,40);
         bag2 = new Bag(70,400,40,40);

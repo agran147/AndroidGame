@@ -4,8 +4,8 @@ import javax.swing.JFrame;
 
 public class GameMain {
 	private static final String GAME_TITLE = "Monster";
-	public static final int GAME_WIDTH = 800;
-	public static final int GAME_HEIGHT = 450;
+	public static final int GAME_WIDTH = 1280;
+	public static final int GAME_HEIGHT = 720;
 	public static Game sGame;
 
 	public static void main(String[] args) {
