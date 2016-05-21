@@ -15,12 +15,13 @@ import com.jamescho.game.model.Brother;
 public class PlayState extends State{
     private Brother brother;
     private Bag bag1,bag2;
-    private static final int BRO_WIDTH = 60;
-    private static final int BRO_HEIGHT = 90;
+    private static final int BRO_WIDTH = 120;
+    private static final int BRO_HEIGHT = 150;
     private Monster monster;
     private int flag = 0; //show whether brother arrives to the middle of the screen
     private int monsterSay = 0; //show whether monster should speak
     private int brotherGo = 0; //show whether animation should play
+    private int brotherSwitch = 0; // show whether switch animation should play
     
     @Override
     public void init() {
@@ -38,19 +39,28 @@ public class PlayState extends State{
     @Override
     public void render(Graphics g) {
         //draw sky
-        g.setColor(Resources.skyBlue);
-        g.fillRect(0, 0, 800, 450);
+        //g.setColor(Resources.skyBlue);
+        g.drawImage(Resources.background1,0,0,null);
+        //g.fillRect(0, 0, 800, 450);
         //draw road
-        g.setColor(Color.GRAY);
-        g.fillRect(0, 250, 800, 200);
+        //g.setColor(Color.GRAY);
+        //g.fillRect(0, 250, 800, 200);
         //draw brother
         /*g.setColor(Color.BLUE);
          g.fillRect(brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());*/
         
-        if(brotherGo == 0){
-            g.drawImage(Resources.run2, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight(), null);
-        } else if(brotherGo == 1){
+        if(brotherGo == 0 && brotherSwitch==0){
+            g.drawImage(Resources.stop, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight(), null);
+        }
+        else if(brotherSwitch == 0 && brotherGo == 1){
             Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
+        }
+        else if(brotherSwitch ==1 && brotherGo == 0 ){
+            Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
+        }
+        else{
+            Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
+            
         }
         //draw monster
         g.setColor(Color.RED);
@@ -69,17 +79,16 @@ public class PlayState extends State{
     public void onClick(MouseEvent e) {
         //give right thing
         if(flag == 0 && e.getButton() == MouseEvent.BUTTON1 && (e.getX() >= bag1.getX() && e.getX() <= (bag1.getX() + bag1.getWidth()) && e.getY() >= bag1.getY() && e.getY() <= (bag1.getY() + bag1.getHeight()))){
-            //monster.happy();
+            monster.happy();
             flag = 1;
             monsterSay = 0;
         }
         //give wrong thing
         else if(flag == 0 && e.getButton() == MouseEvent.BUTTON1 && (e.getX() >= bag2.getX() && e.getX() <= (bag2.getX() + bag2.getWidth()) && e.getY() >= bag2.getY() && e.getY() <= (bag2.getY() + bag2.getHeight()))){
-            //monster.angry();
+            monster.angry();
             flag = 2;
             monsterSay = 0;
         }
-        monster.receive(flag);
         
     }
     
@@ -101,6 +110,18 @@ public class PlayState extends State{
             brotherGo = 1;
             brother.accelForward();
         }
+        if(e.getKeyCode() == KeyEvent.VK_UP && brother.getbrotherLine()!=1&&(flag != 0 || brother.getX() < GameMain.GAME_WIDTH/2))
+        {
+            brotherSwitch = 1;
+            brother.brotherLineUp();
+            brother.brotherGoUp();
+        }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN && brother.getbrotherLine()!=3&&(flag != 0 || brother.getX() < GameMain.GAME_WIDTH/2))
+        {
+            brotherSwitch = 1;
+            brother.brotherLineDown();
+            brother.brotherGoDown();
+        }
         
     }
     
@@ -110,6 +131,7 @@ public class PlayState extends State{
             brother.stop();
             brotherGo = 0;
         }
+        brotherSwitch=0;
         
     }
     private boolean monsterCollides(Brother b){
@@ -127,6 +149,7 @@ public class PlayState extends State{
         monster.update(brother);
         
         if(monsterCollides(brother)){
+            monster.stop();
             setCurrentState(new GameOverState());
         }
     }
