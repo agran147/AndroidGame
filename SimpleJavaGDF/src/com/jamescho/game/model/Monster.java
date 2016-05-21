@@ -1,5 +1,7 @@
 package com.jamescho.game.model;
 import java.awt.*;
+
+import com.jamescho.game.main.Resources;
 import com.jamescho.game.model.Brother;
 public class Monster {
     private int x,y,width,height,velX,velY;
@@ -10,7 +12,7 @@ public class Monster {
     
     public Monster(int x,int y,int width,int height){
         this.x = x;
-        this.y =y;
+        this.y = y;
         this.width = width;
         this.height = height;
         rect = new Rectangle(x,y,width,height);
@@ -19,9 +21,9 @@ public class Monster {
         monsterFont = new Font("SansSerif",Font.PLAIN,20);
     }
     public void update(Brother b){
-        x += velX;
+    	x += velX;
         y += velY;
-        if(y + height == 250)
+        if(y + height <= 400)
             velY = 0;
         if(angry && b.getY() + b.getHeight() != y + height){
             y = b.getY() + b.getHeight() - height;

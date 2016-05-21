@@ -16,8 +16,9 @@ public class Resources {
     
     public static BufferedImage welcome, iconimage,stop,
     run0,run1,run2,run3,run4,run5,selector,background1;
+    public static BufferedImage mrun1,mrun2,mrun3,mrun4,mrun5;
     public static Color skyBlue;
-    public static Animation runAnim;
+    public static Animation runAnim,runAnim2;
     
     public static void load() {
         background1 = loadImage("background1.png");
@@ -30,6 +31,11 @@ public class Resources {
         run3 = loadImage("run_anim3.png");
         run4 = loadImage("run_anim4.png");
         run5 = loadImage("run_anim5.png");
+        mrun1 = loadImage("runmonster_anim1.png");
+        mrun2 = loadImage("runmonster_anim2.png");
+        mrun3 = loadImage("runmonster_anim3.png");
+        mrun4 = loadImage("runmonster_anim4.png");
+        mrun5 = loadImage("runmonster_anim5.png");
         selector = loadImage("selector.png");
         skyBlue = new Color(208,244,247);
         Frame f0 = new Frame(run0,.1f);
@@ -38,7 +44,13 @@ public class Resources {
         Frame f3 = new Frame(run3,.1f);
         Frame f4 = new Frame(run4,.1f);
         Frame f5 = new Frame(run5,.1f);
+        Frame m1 = new Frame(mrun1,.1f);
+        Frame m2 = new Frame(mrun2,.1f);
+        Frame m3 = new Frame(mrun3,.1f);
+        Frame m4 = new Frame(mrun4,.1f);
+        Frame m5 = new Frame(mrun5,.1f);
         runAnim = new Animation(f0,f1,f2,f3,f4,f5);
+        runAnim2 = new Animation(m1,m2,m3,m4,m5,m3,m2);
     }
     
     private static AudioClip loadSound(String filename) {

@@ -33,8 +33,8 @@ public class GameOverState extends State {
 		g.fillRect(0, 0, GameMain.GAME_WIDTH, GameMain.GAME_HEIGHT);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		g.drawString("GAME OVER", 257, 175);
-		g.drawString("Press any key", 240, 300);
+		g.drawString("GAME OVER", 514, 350);
+		g.drawString("Press any key", 490, 430);
 	}
 
 	@Override
