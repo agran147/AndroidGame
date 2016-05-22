@@ -18,9 +18,18 @@ public class Resources {
     run0,run1,run2,run3,run4,run5,selector,background1;
     public static BufferedImage mrun1,mrun2,mrun3,mrun4,mrun5;
     public static Color skyBlue;
+    public static Color white;
+    public static BufferedImage title1, title2,startBtn,exitBtn,intro,introback,introplayicon;
     public static Animation runAnim,runAnim2;
     
     public static void load() {
+    	startBtn = loadImage("startBtn.jpg");
+    	exitBtn = loadImage("exitBtn.jpg");
+    	title1 = loadImage("title1.png");
+    	title2 = loadImage("title2.png");
+    	introplayicon = loadImage("introplayicon.png");
+        intro = loadImage("intro.png");
+        introback = loadImage("introback.png");
         background1 = loadImage("background1.png");
         stop = loadImage("stop.png");
         welcome = loadImage("welcome.png");

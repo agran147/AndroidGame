@@ -23,11 +23,16 @@ public class MenuState extends State {
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(Resources.welcome, 0, 0, null); 
+		g.drawImage(Resources.title1,140,160, null); 
+		g.drawImage(Resources.title2, 680, 320, null);
+		g.drawImage(Resources.startBtn, 220, 431, null); 
+		g.drawImage(Resources.exitBtn, 220, 491, null); 
+
 		if (currentSelection == 0) {
-			g.drawImage(Resources.selector, 280, 291, null); 
+			g.drawImage(Resources.selector, 180, 431, null); 
 		} 
 		else {
-			g.drawImage(Resources.selector, 280, 351, null);
+			g.drawImage(Resources.selector, 180, 491, null);
 		}
 	}
 	@Override
@@ -42,7 +47,7 @@ public class MenuState extends State {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_ENTER) {
 			if (currentSelection == 0) {
-				setCurrentState(new PlayState()); 
+				setCurrentState(new IntroState()); 
 			} 
 			else if (currentSelection == 1) {
 				GameMain.sGame.exit();
