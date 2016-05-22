@@ -14,6 +14,7 @@ import com.jamescho.game.model.*;
 import com.jamescho.game.model.Brother;
 public class PlayState extends State{
     private Brother brother;
+    private Background background;
     private Bag bag1,bag2;
     private static final int BRO_WIDTH = 150;
     private static final int BRO_HEIGHT = 180;
@@ -26,7 +27,8 @@ public class PlayState extends State{
     private int monsterGo = 0;// show if monster move
 
     public void init() {
-        brother = new Brother(20,380,BRO_WIDTH,BRO_HEIGHT);
+        brother = new Brother(420,380,BRO_WIDTH,BRO_HEIGHT);
+        background = new Background(-12,-12,2583,744);
         monster = new Monster(1200,460,72,97);
         bag1 = new Bag(20,660,40,40);
         bag2 = new Bag(70,660,40,40);
@@ -41,7 +43,7 @@ public class PlayState extends State{
     public void render(Graphics g) {
         //draw sky
         //g.setColor(Resources.skyBlue);
-        g.drawImage(Resources.background1,0,0,null);
+        //g.drawImage(Resources.background1,-12,-12,null);
         //g.fillRect(0, 0, 800, 450);
         //draw road
         //g.setColor(Color.GRAY);
@@ -50,25 +52,35 @@ public class PlayState extends State{
         /*g.setColor(Color.BLUE);
          g.fillRect(brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());*/
         
-        if(monsterGo == 1)Resources.runAnim2.render(g, monster.getX(), monster.getY() - monster.getHeight() * 3, monster.getWidth() * 4, monster.getHeight() * 4);
-        else if(monsterGo == 2 && monster.getY() + monster.getHeight() > 400)Resources.runAnim2.render(g, monster.getX(), monster.getY(), monster.getWidth(), monster.getHeight());
-        else
-        	g.drawImage(Resources.mrun1,monster.getX(),monster.getY(),monster.getWidth(),monster.getHeight(),null);
+        
        
         if(brotherGo == 0 && brotherSwitch==0){
+            g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
             g.drawImage(Resources.stop, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight(), null);
         }
         else if(brotherSwitch == 0 && brotherGo == 1){
+            g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
             Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
         }
         else if(brotherSwitch ==1 && brotherGo == 0 ){
-            Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
+            g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
+        	Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
         }
         else{
+            g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
             Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
             
         }
         //draw monster
+        if(monsterGo == 1){
+        	Resources.runAnim2.render(g, monster.getX(), monster.getY() - monster.getHeight() * 3, monster.getWidth() * 4, monster.getHeight() * 4);
+        }
+        else if(monsterGo == 2 && monster.getY() + monster.getHeight() > 400){
+        	Resources.runAnim2.render(g, monster.getX(), monster.getY(), monster.getWidth(), monster.getHeight());
+        }
+        else{
+        	g.drawImage(Resources.mrun1,monster.getX(),monster.getY(),monster.getWidth(),monster.getHeight(),null);
+        }
         //g.setColor(Color.RED);
         //g.fillRect(monster.getX(), monster.getY(), monster.getWidth(), monster.getHeight());
         //draw bag
@@ -111,7 +123,7 @@ public class PlayState extends State{
         
         //brother arrives middle
         if (e.getKeyCode() == KeyEvent.VK_RIGHT && middle == 0 && brother.getX() >= GameMain.GAME_WIDTH/2){
-            brother.stop();
+        	background.stop();
             middle = 1;
             brotherGo = 0;
             monsterSay = 1;
@@ -119,7 +131,7 @@ public class PlayState extends State{
         //brother hasn't arrived middle
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT && (item != 0 || brother.getX() < GameMain.GAME_WIDTH/2)){
             brotherGo = 1;
-            brother.accelForward();
+            background.accelForward();
         }
         if(e.getKeyCode() == KeyEvent.VK_UP && brother.getbrotherLine()!=1&&(item != 0 || brother.getX() < GameMain.GAME_WIDTH/2))
         {
@@ -139,7 +151,7 @@ public class PlayState extends State{
     @Override
     public void onKeyRelease(KeyEvent e) {
         if(/*e.getKeyCode() == KeyEvent.VK_LEFT ||*/ e.getKeyCode() == KeyEvent.VK_RIGHT){
-            brother.stop();
+            background.stop();
             brotherGo = 0;
         }
         brotherSwitch=0;
@@ -157,6 +169,7 @@ public class PlayState extends State{
     public void update(float delta) {
         Resources.runAnim.update(delta);
         Resources.runAnim2.update(delta);
+        background.update();
         brother.update();
         monster.update(brother);
         

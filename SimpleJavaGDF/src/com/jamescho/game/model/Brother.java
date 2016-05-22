@@ -3,7 +3,7 @@ import java.awt.*;
 import com.jamescho.game.state.*;
 import com.jamescho.game.main.GameMain;
 public class Brother {
-    private int x,y,width,height,velX,velY;
+    private int x,y,width,height,velY;
     private Rectangle rect;
     private final static int MOVE_SPEED = 4;
     private int brotherLine ; //it is the line location  1,2,3 means up middle and down
@@ -14,14 +14,14 @@ public class Brother {
         this.width = width;
         this.height = height;
         rect = new Rectangle(x,y,width,height);
-        velX = 0;
+       // velX = 0;
         velY = 0;
         brotherLine=2;
         updateRect();
     }
     public void update(){
         
-        x += velX;
+        //x += velX;
         y += velY;
         if(x < 0){ //to prevent from getting out of screen when go back
             x = 0;
@@ -38,7 +38,7 @@ public class Brother {
             velY=0;
         }
         
-        
+
         updateRect();
     }
     private void updateRect(){
@@ -61,7 +61,7 @@ public class Brother {
     public void brotherGoDown(){
         velY=4;//*Backpack.checkweight();
     }
-    public void accelForward(){ //go forward
+    /*public void accelForward(){ //go forward
         
         velX = MOVE_SPEED;//*Backpack.checkweight();
         
@@ -72,6 +72,8 @@ public class Brother {
     public void stop(){
         velX = 0;
     }
+    */
+    
     public int getX(){
         return x;
     }
