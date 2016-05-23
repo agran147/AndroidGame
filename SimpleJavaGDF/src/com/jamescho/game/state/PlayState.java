@@ -25,6 +25,8 @@ public class PlayState extends State{
     private int brotherSwitch = 0; // show whether switch animation should play
     private int item = 0;// item-id
     private int monsterGo = 0;// show if monster move
+    private Font waterFont;
+    private WaterHole waterHole;
 
     public void init() {
         brother = new Brother(420,380,BRO_WIDTH,BRO_HEIGHT);
@@ -32,6 +34,8 @@ public class PlayState extends State{
         monster = new Monster(1200,460,72,97);
         bag1 = new Bag(20,660,40,40);
         bag2 = new Bag(70,660,40,40);
+        waterFont = new Font ("SansSerif", Font.BOLD, 25);
+        waterHole = new WaterHole(1200, 200, 350, 350);
     }
     
     @Override
@@ -91,7 +95,15 @@ public class PlayState extends State{
         if(monsterSay == 1){
             monster.ask(g);
         }
+        renderWater(g);
+        g.drawImage(Resources.waterIcon, 10, 20, null);
+        g.drawImage(Resources.waterHole1, (int)waterHole.getX(),(int)waterHole.getY(), 350, 350, null);
     }
+    private void renderWater(Graphics g){
+		g.setFont(waterFont);
+		g.setColor(Color.BLUE);
+		g.drawString("" + brother.getWater() / 100, 50, 30);
+	}
     
     @Override
     public void onClick(MouseEvent e) {
@@ -160,6 +172,14 @@ public class PlayState extends State{
     private boolean monsterCollides(Brother b){
         return monster.getRect().intersects(b.getRect());
     }
+    private boolean waterCollides(Brother b){
+    	if(brotherGo == 1 && waterHole.getRect().intersects(b.getRect()))
+    	{
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
     
     public int getFlag(){
         return middle;
@@ -172,8 +192,8 @@ public class PlayState extends State{
         background.update();
         brother.update();
         monster.update(brother);
-        
-        if(monsterGo == 1 && monsterCollides(brother)){
+        waterHole.update(delta,-50);
+        if((monsterGo == 1 && monsterCollides(brother)) || brother.getWater() <= 0){
             //monster.stop();
             setCurrentState(new GameOverState());
         }
