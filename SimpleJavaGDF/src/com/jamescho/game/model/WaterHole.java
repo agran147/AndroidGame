@@ -18,9 +18,9 @@ public class WaterHole {
 		visible = false;
 	}
 	
-	public void update(float delta, float velX) {
+	public void update(float velX) {
 		visible = true;
-		x += velX * delta;
+		x += velX ;
 		if (x <= -50) {
 			visible = false;
 		}

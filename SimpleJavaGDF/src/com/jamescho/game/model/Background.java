@@ -40,6 +40,9 @@ public class Background {
     public void stop(){
         velX = 0;
     }
+    public int getVelx(){
+    	return velX;
+    }
     public int getX(){
         return x;
     }

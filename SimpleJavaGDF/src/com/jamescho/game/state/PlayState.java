@@ -35,7 +35,7 @@ public class PlayState extends State{
         bag1 = new Bag(20,660,40,40);
         bag2 = new Bag(70,660,40,40);
         waterFont = new Font ("SansSerif", Font.BOLD, 25);
-        waterHole = new WaterHole(1200, 200, 350, 350);
+        waterHole = new WaterHole(1200, 375, 150, 150);
     }
     
     @Override
@@ -60,20 +60,23 @@ public class PlayState extends State{
        
         if(brotherGo == 0 && brotherSwitch==0){
             g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
+            g.drawImage(Resources.waterHole1, (int)waterHole.getX(),(int)waterHole.getY(), 150, 150, null);
             g.drawImage(Resources.stop, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight(), null);
         }
         else if(brotherSwitch == 0 && brotherGo == 1){
             g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
+            g.drawImage(Resources.waterHole1, (int)waterHole.getX(),(int)waterHole.getY(), 150, 150, null);
             Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
         }
         else if(brotherSwitch ==1 && brotherGo == 0 ){
             g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
+            g.drawImage(Resources.waterHole1, (int)waterHole.getX(),(int)waterHole.getY(), 150, 150, null);
         	Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
         }
         else{
             g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
+            g.drawImage(Resources.waterHole1, (int)waterHole.getX(),(int)waterHole.getY(), 150, 150, null);
             Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
-            
         }
         //draw monster
         if(monsterGo == 1){
@@ -97,7 +100,6 @@ public class PlayState extends State{
         }
         renderWater(g);
         g.drawImage(Resources.waterIcon, 10, 20, null);
-        g.drawImage(Resources.waterHole1, (int)waterHole.getX(),(int)waterHole.getY(), 350, 350, null);
     }
     private void renderWater(Graphics g){
 		g.setFont(waterFont);
@@ -192,7 +194,7 @@ public class PlayState extends State{
         background.update();
         brother.update();
         monster.update(brother);
-        waterHole.update(delta,-50);
+        waterHole.update(background.getVelx());
         if((monsterGo == 1 && monsterCollides(brother)) || brother.getWater() <= 0){
             //monster.stop();
             setCurrentState(new GameOverState());
