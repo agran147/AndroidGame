@@ -21,6 +21,7 @@ public class Resources {
     public static Color white;
     public static BufferedImage title1, title2,startBtn,exitBtn,intro,introback,introplayicon,waterIcon,waterHole1;
     public static Animation runAnim,runAnim2;
+    public static AudioClip monsterAsk;
     
     public static void load() {
     	startBtn = loadImage("startBtn.jpg");
@@ -49,6 +50,7 @@ public class Resources {
         selector = loadImage("selector.png");
         skyBlue = new Color(208,244,247);
         waterHole1 = loadImage("WaterHole.png");
+        monsterAsk = loadSound("monsterAsk.wav");
         Frame f0 = new Frame(run0,.1f);
         Frame f1 = new Frame(run1,.1f);
         Frame f2 = new Frame(run2,.1f);

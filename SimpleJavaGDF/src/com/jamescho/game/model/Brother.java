@@ -23,7 +23,6 @@ public class Brother {
     public void update(){
         
         //x += velX;
-    	water -= 1;
         y += velY;
         if(x < 0){ //to prevent from getting out of screen when go back
             x = 0;
@@ -96,5 +95,11 @@ public class Brother {
     }
     public void refill(){
     	water = 2000;
+    }
+    public void waterDecrease(){
+    	water -= 1;
+    }
+    public void waterHold(){
+    	water -= 0;
     }
 }

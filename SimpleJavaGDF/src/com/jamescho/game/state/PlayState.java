@@ -19,7 +19,7 @@ public class PlayState extends State{
     private static final int BRO_WIDTH = 150;
     private static final int BRO_HEIGHT = 180;
     private Monster monster;
-    private int middle = 0; //show whether brother arrives to the middle of the screen
+    private int monsterAppear = 0; //show whether brother arrives to the end of the road
     private int monsterSay = 0; //show whether monster should speak
     private int brotherGo = 0; //show whether animation should play
     private int brotherSwitch = 0; // show whether switch animation should play
@@ -27,7 +27,10 @@ public class PlayState extends State{
     private int monsterGo = 0;// show if monster move
     private Font waterFont;
     private WaterHole waterHole;
-
+    private Font scoreFont;
+    private int playerScore = 0;
+    private int appearX,appearY;
+    
     public void init() {
         brother = new Brother(420,380,BRO_WIDTH,BRO_HEIGHT);
         background = new Background(-12,-12,2583,744);
@@ -36,6 +39,7 @@ public class PlayState extends State{
         bag2 = new Bag(70,660,40,40);
         waterFont = new Font ("SansSerif", Font.BOLD, 25);
         waterHole = new WaterHole(1200, 375, 150, 150);
+        scoreFont = new Font("SansSerif", Font.BOLD, 25);
     }
     
     @Override
@@ -45,20 +49,8 @@ public class PlayState extends State{
     
     @Override
     public void render(Graphics g) {
-        //draw sky
-        //g.setColor(Resources.skyBlue);
-        //g.drawImage(Resources.background1,-12,-12,null);
-        //g.fillRect(0, 0, 800, 450);
-        //draw road
-        //g.setColor(Color.GRAY);
-        //g.fillRect(0, 250, 800, 200);
-        //draw brother
-        /*g.setColor(Color.BLUE);
-         g.fillRect(brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());*/
-        
-        
-       
-        if(brotherGo == 0 && brotherSwitch==0){
+        //brother control
+    	if(brotherGo == 0 && brotherSwitch==0){
             g.drawImage(Resources.background1, background.getX(), background.getY(), background.getWidth(), background.getHeight(), null);
             g.drawImage(Resources.waterHole1, (int)waterHole.getX(),(int)waterHole.getY(), 150, 150, null);
             g.drawImage(Resources.stop, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight(), null);
@@ -78,29 +70,41 @@ public class PlayState extends State{
             g.drawImage(Resources.waterHole1, (int)waterHole.getX(),(int)waterHole.getY(), 150, 150, null);
             Resources.runAnim.render(g, brother.getX(), brother.getY(), brother.getWidth(), brother.getHeight());
         }
+        
         //draw monster
         if(monsterGo == 1){
         	Resources.runAnim2.render(g, monster.getX(), monster.getY() - monster.getHeight() * 3, monster.getWidth() * 4, monster.getHeight() * 4);
         }
         else if(monsterGo == 2 && monster.getY() + monster.getHeight() > 400){
-        	Resources.runAnim2.render(g, monster.getX(), monster.getY(), monster.getWidth(), monster.getHeight());
+        	Resources.runAnim2.render(g, monster.getX() + background.getX() - appearX, monster.getY() + background.getY() - appearY, monster.getWidth(), monster.getHeight());
         }
-        else{
-        	g.drawImage(Resources.mrun1,monster.getX(),monster.getY(),monster.getWidth(),monster.getHeight(),null);
+        else if (monsterAppear == 1 || monsterGo == 2){
+        	g.drawImage(Resources.mrun1,monster.getX() + background.getX() - appearX, monster.getY() + background.getY() - appearY,monster.getWidth(),monster.getHeight(),null);
         }
-        //g.setColor(Color.RED);
-        //g.fillRect(monster.getX(), monster.getY(), monster.getWidth(), monster.getHeight());
+
         //draw bag
         g.setColor(Color.GREEN);
         g.fillRect(bag1.getX(), bag1.getY(), bag1.getWidth(), bag1.getHeight());
         g.fillRect(bag2.getX(), bag2.getY(), bag2.getWidth(), bag2.getHeight());
+        
         //monster say
         if(monsterSay == 1){
             monster.ask(g);
+            monsterSay = 0;
         }
         renderWater(g);
         g.drawImage(Resources.waterIcon, 10, 20, null);
+        
+        //draw score
+        renderScore(g);
     }
+    
+    private void renderScore(Graphics g){
+    	g.setFont(scoreFont);
+    	g.setColor(Color.BLACK);
+    	g.drawString("playscore:" + playerScore / 100, 100, 30);
+    }
+    
     private void renderWater(Graphics g){
 		g.setFont(waterFont);
 		g.setColor(Color.BLUE);
@@ -110,38 +114,34 @@ public class PlayState extends State{
     @Override
     public void onClick(MouseEvent e) {
         //give right thing
-        if(middle == 1 && e.getButton() == MouseEvent.BUTTON1 && (e.getX() >= bag1.getX() && e.getX() <= (bag1.getX() + bag1.getWidth()) && e.getY() >= bag1.getY() && e.getY() <= (bag1.getY() + bag1.getHeight()))){
+        if(monsterAppear == 1 && e.getButton() == MouseEvent.BUTTON1 && (e.getX() >= bag1.getX() && e.getX() <= (bag1.getX() + bag1.getWidth()) && e.getY() >= bag1.getY() && e.getY() <= (bag1.getY() + bag1.getHeight()))){
             //monster.happy();
             item = 1;
-            monsterSay = 0;
             monsterGo = 2;
             monster.receive(item);
+            monsterAppear = 0;
         }
         //give wrong thing
-        else if(middle == 1 && e.getButton() == MouseEvent.BUTTON1 && (e.getX() >= bag2.getX() && e.getX() <= (bag2.getX() + bag2.getWidth()) && e.getY() >= bag2.getY() && e.getY() <= (bag2.getY() + bag2.getHeight()))){
+        else if(monsterAppear == 1 && e.getButton() == MouseEvent.BUTTON1 && (e.getX() >= bag2.getX() && e.getX() <= (bag2.getX() + bag2.getWidth()) && e.getY() >= bag2.getY() && e.getY() <= (bag2.getY() + bag2.getHeight()))){
             //monster.angry();
             item = 2;
-            monsterSay = 0;
             monsterGo = 1;
             monster.receive(item);
+            monsterAppear = 0;
         }
         
     }
     
     @Override
     public void onKeyPress(KeyEvent e) {
-        /*if(e.getKeyCode() == KeyEvent.VK_LEFT){
-         brother.accelBack();
-         
-         } else */
         
-        //brother arrives middle
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT && middle == 0 && brother.getX() >= GameMain.GAME_WIDTH/2){
+        //monster appear
+        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN) && monsterAppear == 1){
         	background.stop();
-            middle = 1;
-            brotherGo = 0;
             monsterSay = 1;
+            brotherGo = 0;
         }
+        
         //brother hasn't arrived middle
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT && (item != 0 || brother.getX() < GameMain.GAME_WIDTH/2)){
             brotherGo = 1;
@@ -184,7 +184,7 @@ public class PlayState extends State{
     }
     
     public int getFlag(){
-        return middle;
+        return monsterAppear;
     }
     
     @Override
@@ -193,11 +193,22 @@ public class PlayState extends State{
         Resources.runAnim2.update(delta);
         background.update();
         brother.update();
+        //when monster appear, stopping water decrease
+        if(monsterAppear == 0)brother.waterDecrease();
+        else brother.waterHold();
         monster.update(brother);
         waterHole.update(background.getVelx());
         if((monsterGo == 1 && monsterCollides(brother)) || brother.getWater() <= 0){
-            //monster.stop();
             setCurrentState(new GameOverState());
+        }
+        if(brotherGo ==1 ) playerScore += 1;
+        if(monsterGo == 0 && playerScore == 1000){
+        	monsterAppear = 1;
+        	appearX = background.getX();
+        	appearY = background.getY();
+        }
+        if(monsterGo == 2 && (monster.getX() + background.getX() - appearX <= 0 || monster.getX() + background.getX() - appearX >= GameMain.GAME_WIDTH)){
+        	setCurrentState(new MenuState());
         }
     }
     

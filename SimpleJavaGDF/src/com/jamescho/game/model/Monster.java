@@ -7,7 +7,7 @@ public class Monster {
     private int x,y,width,height,velX,velY;
     private Rectangle rect;
     private final static int MOV_SPEED = 4;
-    private Font monsterFont; //the talk of monster
+    //private Font monsterFont; //the talk of monster
     private boolean angry = false;
     
     public Monster(int x,int y,int width,int height){
@@ -18,7 +18,6 @@ public class Monster {
         rect = new Rectangle(x,y,width,height);
         velX=0;
         velY=0;
-        monsterFont = new Font("SansSerif",Font.PLAIN,20);
     }
     public void update(Brother b){
     	x += velX;
@@ -33,9 +32,7 @@ public class Monster {
     
     /*Monster ask the brother*/
     public void ask(Graphics g){
-        g.setColor(Color.BLACK);
-        g.setFont(monsterFont);
-        g.drawString("Do you have something to give me?", 400, 140);
+        Resources.monsterAsk.play();
     }
     
     private void updateRect(){
@@ -58,10 +55,10 @@ public class Monster {
     }
     public void angry(){
         angry = true;
-        velX = -4;
+        velX = -6;
     }
     public void happy(){
-        velY = -4;
+        velY = -6;
     }
     public void stop(){
         velX = 0;
