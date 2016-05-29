@@ -175,7 +175,7 @@ public class PlayState extends State{
         return monster.getRect().intersects(b.getRect());
     }
     private boolean waterCollides(Brother b){
-    	if(brotherGo == 1 && waterHole.getRect().intersects(b.getRect()))
+    	if(brotherGo == 0 && waterHole.getRect().intersects(b.getRect()))
     	{
     		return true;
     	}else{
@@ -198,6 +198,9 @@ public class PlayState extends State{
         else brother.waterHold();
         monster.update(brother);
         waterHole.update(background.getVelx());
+        if(waterCollides(brother)){
+        	brother.refill();
+        }
         if((monsterGo == 1 && monsterCollides(brother)) || brother.getWater() <= 0){
             setCurrentState(new GameOverState());
         }
