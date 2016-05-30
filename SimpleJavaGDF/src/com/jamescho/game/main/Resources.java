@@ -19,7 +19,7 @@ public class Resources {
     public static BufferedImage mrun1,mrun2,mrun3,mrun4,mrun5;
     public static Color skyBlue;
     public static Color white;
-    public static BufferedImage title1, title2,startBtn,exitBtn,intro,introback,introplayicon,waterIcon,waterHole1;
+    public static BufferedImage title1, title2,startBtn,exitBtn,intro,introback,introplayicon,waterIcon,waterHole1,HP;
     public static Animation runAnim,runAnim2;
     public static AudioClip monsterAsk;
     
@@ -48,6 +48,7 @@ public class Resources {
         mrun5 = loadImage("runmonster_anim5.png");
         waterIcon = loadImage("ui_Energy-120x120.png");
         selector = loadImage("selector.png");
+        HP = loadImage("ui_Health-120x120.png");
         skyBlue = new Color(208,244,247);
         waterHole1 = loadImage("WaterHole.png");
         monsterAsk = loadSound("monsterAsk.wav");

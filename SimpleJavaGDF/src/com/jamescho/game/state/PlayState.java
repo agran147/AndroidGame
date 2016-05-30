@@ -94,9 +94,10 @@ public class PlayState extends State{
         }
         renderWater(g);
         g.drawImage(Resources.waterIcon, 10, 20, null);
-        
+        g.drawImage(Resources.HP, 150, 20, null);
         //draw score
-        renderScore(g);
+        //renderScore(g);
+        renderHP(g);
     }
     
     private void renderScore(Graphics g){
@@ -110,6 +111,12 @@ public class PlayState extends State{
 		g.setColor(Color.BLUE);
 		g.drawString("" + brother.getWater() / 100, 50, 30);
 	}
+    
+    private void renderHP(Graphics g){
+    	g.setFont(waterFont);
+    	g.setColor(Color.RED);
+    	g.drawString("" + brother.getHP(), 190, 30);
+    }
     
     @Override
     public void onClick(MouseEvent e) {
