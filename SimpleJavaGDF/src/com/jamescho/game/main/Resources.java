@@ -19,13 +19,13 @@ public class Resources {
     public static BufferedImage mrun1,mrun2,mrun3,mrun4,mrun5;
     public static Color skyBlue;
     public static Color white;
-    public static BufferedImage title1, title2,startBtn,exitBtn,intro,introback,introplayicon,waterIcon,waterHole1,HP;
+    public static BufferedImage title1, title2,intro,introback,introplayicon,waterIcon,waterHole1,HP;
+    public static BufferedImage bag, bushOnion, rock;
     public static Animation runAnim,runAnim2;
     public static AudioClip monsterAsk;
     
+    
     public static void load() {
-    	startBtn = loadImage("startBtn.jpg");
-    	exitBtn = loadImage("exitBtn.jpg");
     	title1 = loadImage("title1.png");
     	title2 = loadImage("title2.png");
     	introplayicon = loadImage("introplayicon.png");
@@ -51,6 +51,9 @@ public class Resources {
         HP = loadImage("ui_Health-120x120.png");
         skyBlue = new Color(208,244,247);
         waterHole1 = loadImage("WaterHole.png");
+        bag = loadImage("ui_BackPackInventory.png");
+        bushOnion = loadImage("item_BushOnion-100x100.png");
+        rock = loadImage("item_Rock-100x100.png");
         monsterAsk = loadSound("monsterAsk.wav");
         Frame f0 = new Frame(run0,.1f);
         Frame f1 = new Frame(run1,.1f);

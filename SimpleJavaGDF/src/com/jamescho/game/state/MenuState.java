@@ -23,17 +23,11 @@ public class MenuState extends State {
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(Resources.welcome, 0, 0, null); 
-		g.drawImage(Resources.title1,140,160, null); 
-		g.drawImage(Resources.title2, 680, 320, null);
-		g.drawImage(Resources.startBtn, 220, 431, null); 
-		g.drawImage(Resources.exitBtn, 220, 491, null); 
+		g.drawImage(Resources.title1,320,160, null); 
+		g.drawImage(Resources.title2, 420, 320, null);
 
-		if (currentSelection == 0) {
-			g.drawImage(Resources.selector, 180, 431, null); 
-		} 
-		else {
-			g.drawImage(Resources.selector, 180, 491, null);
-		}
+		g.drawImage(Resources.selector, 360, 361, null);
+		
 	}
 	@Override
 	public void onClick(MouseEvent e) {
