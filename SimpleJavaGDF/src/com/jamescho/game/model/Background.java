@@ -20,7 +20,7 @@ public class Background {
     public void update(){
         x += velX;
        
-       if(x <-1290 ){
+       if(x <-2570 ){
         	x= -12;
         }
         updateRect();

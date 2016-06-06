@@ -12,6 +12,7 @@ public class IntroState extends State {
 	@Override
 	public void init() {
 		System.out.println("Entered MenuState");
+		Resources.introVedio.play();
 	}
 
 	@Override

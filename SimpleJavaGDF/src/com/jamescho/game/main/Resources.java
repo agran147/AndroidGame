@@ -22,7 +22,7 @@ public class Resources {
     public static BufferedImage title1, title2,intro,introback,introplayicon,waterIcon,waterHole1,HP;
     public static BufferedImage bag, bushOnion, rock;
     public static Animation runAnim,runAnim2;
-    public static AudioClip monsterAsk;
+    public static AudioClip monsterAsk,introVedio;
     
     
     public static void load() {
@@ -31,7 +31,7 @@ public class Resources {
     	introplayicon = loadImage("introplayicon.png");
         intro = loadImage("intro.png");
         introback = loadImage("introback.png");
-        background1 = loadImage("background1.png");
+        background1 = loadImage("background1.jpg");
         stop = loadImage("stop.png");
         welcome = loadImage("welcome.png");
         iconimage = loadImage("iconimage.png");
@@ -55,6 +55,7 @@ public class Resources {
         bushOnion = loadImage("item_BushOnion-100x100.png");
         rock = loadImage("item_Rock-100x100.png");
         monsterAsk = loadSound("monsterAsk.wav");
+        introVedio = loadSound("introVedio.wav");
         Frame f0 = new Frame(run0,.1f);
         Frame f1 = new Frame(run1,.1f);
         Frame f2 = new Frame(run2,.1f);

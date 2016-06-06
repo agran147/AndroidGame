@@ -34,7 +34,7 @@ public class PlayState extends State{
     
     public void init() {
         brother = new Brother(420,380,BRO_WIDTH,BRO_HEIGHT);
-        background = new Background(-12,-12,2583,744);
+        background = new Background(-12,-12,3883,744);
         monster = new Monster(1200,460,72,97);
         bag = new Bag(20,160,100,400);
         waterFont = new Font ("SansSerif", Font.BOLD, 25);
